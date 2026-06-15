@@ -19,23 +19,22 @@ test.describe('[UI] QE-910 TS-010: Role Posting Dropdown Validation', { tag: ['@
     await expect(page).toHaveURL(TD.urls.createCoreAsk);
 
     // Step 3: Locate the Level Needed dropdown and select 'Executive Director'
-    const levelNeededDropdown = page.get_by_test_id("levelNeeded");
+    const levelNeededDropdown = page.getByTestId("levelNeeded");
     await expect(levelNeededDropdown).toBeVisible();
     await levelNeededDropdown.click();
     
-    await page.get_by_role("option", { name: 'Executive Director', exact: true }).click();
+    await page.getByRole("option", { name: 'Executive Director', exact: true }).click();
     await expect(levelNeededDropdown).toContainText('Executive Director');
 
     // Step 4: Verify the Role Posting field becomes visible
-    // Based on standard testID conventions
-    const rolePostingDropdown = page.get_by_test_id("rolePosting"); 
+    const rolePostingDropdown = page.getByTestId("rolePosting"); 
     await expect(rolePostingDropdown).toBeVisible();
 
     // Step 5: Click on the Role Posting dropdown
     await rolePostingDropdown.click();
 
     // Step 6: Verify all four options are displayed
-    const options = page.get_by_role("option");
+    const options = page.getByRole("option");
     await expect(options).toHaveCount(TD.expectedCounts.rolePosting);
 
     const allOptionsText = await options.allTextContents();
@@ -55,7 +54,7 @@ test.describe('[UI] QE-910 TS-010: Role Posting Dropdown Validation', { tag: ['@
     for (const level of levelsToTest) {
       // Select the level
       await levelNeededDropdown.click();
-      await page.get_by_role("option", { name: level, exact: true }).click();
+      await page.getByRole("option", { name: level, exact: true }).click();
       
       await expect(levelNeededDropdown).toContainText(level);
 
@@ -68,7 +67,7 @@ test.describe('[UI] QE-910 TS-010: Role Posting Dropdown Validation', { tag: ['@
 
     for (const level of levelsWithoutRolePosting) {
       await levelNeededDropdown.click();
-      await page.get_by_role("option", { name: level, exact: true }).click();
+      await page.getByRole("option", { name: level, exact: true }).click();
       
       await expect(levelNeededDropdown).toContainText(level);
 
