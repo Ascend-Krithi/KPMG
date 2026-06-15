@@ -19,30 +19,32 @@ test.describe('[UI] QE-910 TS-010: Role Posting Dropdown Validation', { tag: ['@
     await expect(page).toHaveURL(TD.urls.createCoreAsk);
 
     // Step 3: Locate the Level Needed dropdown and select 'Executive Director'
-    await expect(await coreAsk.isLevelNeededDropdownVisible()).toBeTruthy();
-    await coreAsk.clickLevelNeededDropdown();
-    await coreAsk.selectDropdownOption('Executive Director');
+    const levelNeededDropdown = page.get_by_test_id("levelNeeded");
+    await expect(levelNeededDropdown).toBeVisible();
+    await levelNeededDropdown.click();
     
-    const selectedLevel = await coreAsk.getSelectedDropdownValue('levelNeeded');
-    await expect(selectedLevel).toContain('Executive Director');
+    await page.get_by_role("option", { name: 'Executive Director', exact: true }).click();
+    await expect(levelNeededDropdown).toContainText('Executive Director');
 
     // Step 4: Verify the Role Posting field becomes visible
-    await expect(await coreAsk.isRolePostingDropdownVisible()).toBeTruthy();
+    // Based on standard testID conventions
+    const rolePostingDropdown = page.get_by_test_id("rolePosting"); 
+    await expect(rolePostingDropdown).toBeVisible();
 
     // Step 5: Click on the Role Posting dropdown
-    await coreAsk.clickRolePostingDropdown();
+    await rolePostingDropdown.click();
 
     // Step 6: Verify all four options are displayed
-    const optionCount = await coreAsk.getDropdownOptionCount();
-    await expect(optionCount).toBe(TD.expectedCounts.rolePosting);
+    const options = page.get_by_role("option");
+    await expect(options).toHaveCount(TD.expectedCounts.rolePosting);
 
-    const allOptions = await coreAsk.getAllDropdownOptions();
+    const allOptionsText = await options.allTextContents();
     
     // Verify all four expected options are present
-    await expect(allOptions).toContain('Internal (within KPMG)');
-    await expect(allOptions).toContain('External (outside KPMG)');
-    await expect(allOptions).toContain('Both (internal and external)');
-    await expect(allOptions).toContain('N/A (determined to be only a transitional core role recruited through BU)');
+    expect(allOptionsText).toContain('Internal (within KPMG)');
+    expect(allOptionsText).toContain('External (outside KPMG)');
+    expect(allOptionsText).toContain('Both (internal and external)');
+    expect(allOptionsText).toContain('N/A (determined to be only a transitional core role recruited through BU)');
 
     // Close the dropdown
     await page.keyboard.press('Escape');
@@ -52,28 +54,26 @@ test.describe('[UI] QE-910 TS-010: Role Posting Dropdown Validation', { tag: ['@
 
     for (const level of levelsToTest) {
       // Select the level
-      await coreAsk.clickLevelNeededDropdown();
-      await coreAsk.selectDropdownOption(level);
+      await levelNeededDropdown.click();
+      await page.get_by_role("option", { name: level, exact: true }).click();
       
-      const currentLevel = await coreAsk.getSelectedDropdownValue('levelNeeded');
-      await expect(currentLevel).toContain(level);
+      await expect(levelNeededDropdown).toContainText(level);
 
       // Verify Role Posting field remains visible
-      await expect(await coreAsk.isRolePostingDropdownVisible()).toBeTruthy();
+      await expect(rolePostingDropdown).toBeVisible();
     }
 
     // Additional validation: Verify Role Posting is hidden for Partner, Principal, Managing Director
     const levelsWithoutRolePosting = ['Partner', 'Principal', 'Managing Director'];
 
     for (const level of levelsWithoutRolePosting) {
-      await coreAsk.clickLevelNeededDropdown();
-      await coreAsk.selectDropdownOption(level);
+      await levelNeededDropdown.click();
+      await page.get_by_role("option", { name: level, exact: true }).click();
       
-      const currentLevel = await coreAsk.getSelectedDropdownValue('levelNeeded');
-      await expect(currentLevel).toContain(level);
+      await expect(levelNeededDropdown).toContainText(level);
 
-      // Verify Role Posting field is hidden
-      await expect(await coreAsk.isRolePostingDropdownVisible()).toBeFalsy();
+      // Verify Role Posting field is hidden natively in Playwright
+      await expect(rolePostingDropdown).toBeHidden(); 
     }
   });
 });
