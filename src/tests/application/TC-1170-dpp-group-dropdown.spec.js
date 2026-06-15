@@ -21,7 +21,7 @@ test.describe('[UI] QE-910 TS-001: DPP Group Dropdown Validation', { tag: ['@smo
     // Step 3: Locate and click on the DPP Group dropdown field
     const dppGroupDropdown = page.getByTestId("dppGroup");
     await expect(dppGroupDropdown).toBeVisible();
-    await dppGroupDropdown.click(); // Opens the popover
+    await dppGroupDropdown.click();
 
     // Step 4: Verify all 17 DPP Group options are displayed in the dropdown
     const options = page.getByRole("option");
@@ -30,9 +30,13 @@ test.describe('[UI] QE-910 TS-001: DPP Group Dropdown Validation', { tag: ['@smo
     // Get an array of all text from the options
     const allOptionsText = await options.allTextContents();
     
+    // Normalize the UI text to use standard hyphens so it matches TD data perfectly
+    const normalizedOptionsText = allOptionsText.map(text => text.replace(/–/g, '-'));
+    
     // Verify all expected options are present
     for (const expectedOption of TD.dppGroups) {
-      expect(allOptionsText).toContain(expectedOption);
+      const normalizedExpected = expectedOption.replace(/–/g, '-');
+      expect(normalizedOptionsText).toContain(normalizedExpected);
     }
 
     // Step 5: Verify the options are grouped correctly by category
@@ -51,14 +55,16 @@ test.describe('[UI] QE-910 TS-001: DPP Group Dropdown Validation', { tag: ['@smo
 
     // Step 6: Select each option one by one and verify it can be selected
     for (const option of TD.dppGroups) {
-      // Re-open dropdown for each selection
       await dppGroupDropdown.click();
       
+      // Find the exact UI string that matches our option (handling dash differences)
+      const actualUiText = allOptionsText.find(t => t.replace(/–/g, '-') === option.replace(/–/g, '-'));
+      
       // Click desired option from the popover list
-      await page.getByRole("option", { name: option, exact: true }).click();
+      await page.getByRole("option", { name: actualUiText, exact: true }).click();
       
       // Verify selection by checking the main dropdown text container
-      await expect(dppGroupDropdown).toContainText(option);
+      await expect(dppGroupDropdown).toContainText(actualUiText);
     }
   });
 });
