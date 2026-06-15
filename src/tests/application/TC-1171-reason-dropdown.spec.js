@@ -19,37 +19,35 @@ test.describe('[UI] QE-910 TS-002: Reason For DPP Need Dropdown Validation', { t
     await expect(page).toHaveURL(TD.urls.createCoreAsk);
 
     // Step 3: Locate the Reason For DPP Need dropdown field
-    await expect(await coreAsk.isReasonDropdownVisible()).toBeTruthy();
+    const reasonDropdown = page.get_by_test_id("reason");
+    await expect(reasonDropdown).toBeVisible();
 
     // Step 4: Click on the Reason For DPP Need dropdown
-    await coreAsk.clickReasonDropdown();
+    await reasonDropdown.click();
 
     // Step 5: Verify exactly three options are displayed
-    const optionCount = await coreAsk.getDropdownOptionCount();
-    await expect(optionCount).toBe(TD.expectedCounts.reasonForDppNeed);
+    const options = page.get_by_role("option");
+    await expect(options).toHaveCount(TD.expectedCounts.reasonForDppNeed);
 
-    const allOptions = await coreAsk.getAllDropdownOptions();
+    const allOptionsText = await options.allTextContents();
     
     // Verify all three expected options are present
-    await expect(allOptions).toContain('Addition');
-    await expect(allOptions).toContain('Replacement');
-    await expect(allOptions).toContain('Succession');
+    expect(allOptionsText).toContain('Addition');
+    expect(allOptionsText).toContain('Replacement');
+    expect(allOptionsText).toContain('Succession');
 
     // Step 6: Select 'Addition' from the dropdown
-    await coreAsk.selectDropdownOption('Addition');
-    let selectedValue = await coreAsk.getSelectedDropdownValue('reason');
-    await expect(selectedValue).toContain('Addition');
+    await page.get_by_role("option", { name: 'Addition', exact: true }).click();
+    await expect(reasonDropdown).toContainText('Addition');
 
     // Step 7: Select 'Replacement' from the dropdown
-    await coreAsk.clickReasonDropdown();
-    await coreAsk.selectDropdownOption('Replacement');
-    selectedValue = await coreAsk.getSelectedDropdownValue('reason');
-    await expect(selectedValue).toContain('Replacement');
+    await reasonDropdown.click();
+    await page.get_by_role("option", { name: 'Replacement', exact: true }).click();
+    await expect(reasonDropdown).toContainText('Replacement');
 
     // Step 8: Select 'Succession' from the dropdown
-    await coreAsk.clickReasonDropdown();
-    await coreAsk.selectDropdownOption('Succession');
-    selectedValue = await coreAsk.getSelectedDropdownValue('reason');
-    await expect(selectedValue).toContain('Succession');
+    await reasonDropdown.click();
+    await page.get_by_role("option", { name: 'Succession', exact: true }).click();
+    await expect(reasonDropdown).toContainText('Succession');
   });
 });
