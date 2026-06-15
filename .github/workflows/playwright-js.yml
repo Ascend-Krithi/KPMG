@@ -18,11 +18,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          # Removed cache: 'npm' to prevent the lock file missing error
 
-      - name: Install dependencies
-        # Switched to npm install which bypasses the strict package-lock.json requirement
-        run: npm install
+      - name: Ensure package.json exists & Install Dependencies
+        run: |
+          if [ ! -f package.json ]; then
+            echo "package.json missing! Generating a default one for the agent's commit..."
+            npm init -y
+            npm install @playwright/test
+          else
+            npm install
+          fi
 
       - name: Install Playwright Browsers & System Deps
         run: npx playwright install --with-deps chromium
@@ -54,7 +59,6 @@ jobs:
       - name: Run Playwright tests (headed on Xvfb :99)
         env:
           DISPLAY: ":99"
-        # Pointing the runner directly to the application tests folder shown in your image
         run: |
           npx playwright test src/tests/application/ --headed
 
