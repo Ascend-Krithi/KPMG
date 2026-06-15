@@ -40,10 +40,10 @@ test.describe('[UI] QE-910 TS-010: Role Posting Dropdown Validation', { tag: ['@
     const allOptionsText = await options.allTextContents();
     
     // Verify all four expected options are present using the actual UI labels
-    expect(allOptionsText).toContain('Internal');
-    expect(allOptionsText).toContain('External');
-    expect(allOptionsText).toContain('Both');
-    expect(allOptionsText).toContain('N/A');
+    expect(allOptionsText).toContain('Internal (within KPMG)');
+    expect(allOptionsText).toContain('External (outside KPMG)');
+    expect(allOptionsText).toContain('Both (internal and external)');
+    expect(allOptionsText).toContain('N/A (determined to be only a transitional core role recruited through BU)');
 
     // Close the dropdown
     await page.keyboard.press('Escape');
