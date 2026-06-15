@@ -19,12 +19,12 @@ test.describe('[UI] QE-910 TS-001: DPP Group Dropdown Validation', { tag: ['@smo
     await expect(page).toHaveURL(TD.urls.createCoreAsk);
 
     // Step 3: Locate and click on the DPP Group dropdown field
-    const dppGroupDropdown = page.get_by_test_id("dppGroup");
+    const dppGroupDropdown = page.getByTestId("dppGroup");
     await expect(dppGroupDropdown).toBeVisible();
     await dppGroupDropdown.click(); // Opens the popover
 
     // Step 4: Verify all 17 DPP Group options are displayed in the dropdown
-    const options = page.get_by_role("option");
+    const options = page.getByRole("option");
     await expect(options).toHaveCount(TD.expectedCounts.dppGroups);
 
     // Get an array of all text from the options
@@ -55,7 +55,7 @@ test.describe('[UI] QE-910 TS-001: DPP Group Dropdown Validation', { tag: ['@smo
       await dppGroupDropdown.click();
       
       // Click desired option from the popover list
-      await page.get_by_role("option", { name: option, exact: true }).click();
+      await page.getByRole("option", { name: option, exact: true }).click();
       
       // Verify selection by checking the main dropdown text container
       await expect(dppGroupDropdown).toContainText(option);
