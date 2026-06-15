@@ -1,0 +1,31 @@
+const locators = {
+  coreAskMenuLink: (page) => page.locator('a:has-text("Core ASK"), [href*="core-ask"]').first(),
+  createCoreAskButton: (page) => page.locator('button:has-text("Create Core ASK"), a:has-text("Create Core ASK")').first(),
+  dppGroupDropdown: (page) => page.locator('select[name*="dppGroup"], select[id*="dppGroup"], [data-testid="dpp-group-dropdown"]').first(),
+  dppGroupOption: (page, optionText) => page.locator(`option:has-text("${optionText}")`).first(),
+  reasonForDppNeedDropdown: (page) => page.locator('select[name*="reasonForDppNeed"], select[id*="reason"], [data-testid="reason-dropdown"]').first(),
+  reasonForDppNeedOption: (page, optionText) => page.locator(`option:has-text("${optionText}")`).first(),
+  outgoingResourceField: (page) => page.locator('input[name*="outgoingResource"], input[id*="outgoing"], [data-testid="outgoing-resource"]').first(),
+  retirementDateField: (page) => page.locator('input[name*="retirementDate"], input[id*="retirement"], input[type="date"], [data-testid="retirement-date"]').first(),
+  datePickerIcon: (page) => page.locator('[class*="date-picker"], [class*="calendar-icon"], button[aria-label*="date"]').first(),
+  levelNeededDropdown: (page) => page.locator('select[name*="levelNeeded"], select[id*="level"], [data-testid="level-dropdown"]').first(),
+  levelNeededOption: (page, optionText) => page.locator(`option:has-text("${optionText}")`).first(),
+  generalSpecialtyDropdown: (page) => page.locator('select[name*="generalSpecialty"], select[id*="specialty"], [data-testid="specialty-dropdown"]').first(),
+  generalSpecialtyOption: (page, optionText) => page.locator(`option:has-text("${optionText}")`).first(),
+  specialtyTextBox: (page) => page.locator('input[name*="specialtyDetails"], textarea[name*="specialty"], [data-testid="specialty-textbox"]').first(),
+  leadershipTextBox: (page) => page.locator('input[name*="leadershipDetails"], textarea[name*="leadership"], [data-testid="leadership-textbox"]').first(),
+  rolePostingDropdown: (page) => page.locator('select[name*="rolePosting"], select[id*="posting"], [data-testid="role-posting-dropdown"]').first(),
+  rolePostingOption: (page, optionText) => page.locator(`option:has-text("${optionText}")`).first(),
+  headcountAmountField: (page) => page.locator('input[name*="headcount"], input[id*="headcount"]').first(),
+  dppFteAmountField: (page) => page.locator('input[name*="dppFte"], input[id*="fte"]').first(),
+  projectStartDateField: (page) => page.locator('input[name*="projectStart"], input[id*="startDate"]').first(),
+  roleSummaryField: (page) => page.locator('textarea[name*="roleSummary"], textarea[id*="summary"]').first(),
+  roleResponsibilitiesField: (page) => page.locator('textarea[name*="responsibilities"], textarea[id*="responsibilities"]').first(),
+  roleQualificationsField: (page) => page.locator('textarea[name*="qualifications"], textarea[id*="qualifications"]').first(),
+  submitButton: (page) => page.locator('button[type="submit"], button:has-text("Submit"), button:has-text("Route")').first(),
+  routingOptionRadio: (page, optionText) => page.locator(`input[type="radio"][value*="${optionText}"], label:has-text("${optionText}")`).first(),
+  confirmationMessage: (page) => page.locator('[class*="success"], [class*="confirmation"], [role="alert"]').first(),
+  formContainer: (page) => page.locator('form, [class*="form-container"]').first()
+};
+
+module.exports = locators;
