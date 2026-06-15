@@ -18,10 +18,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          # Removed cache: 'npm' to prevent the lock file missing error
 
       - name: Install dependencies
-        run: npm ci
+        # Switched to npm install which bypasses the strict package-lock.json requirement
+        run: npm install
 
       - name: Install Playwright Browsers & System Deps
         run: npx playwright install --with-deps chromium
@@ -53,8 +54,9 @@ jobs:
       - name: Run Playwright tests (headed on Xvfb :99)
         env:
           DISPLAY: ":99"
+        # Pointing the runner directly to the application tests folder shown in your image
         run: |
-          npx playwright test --headed --grep "TS001_TC001|TS001_TC002"
+          npx playwright test src/tests/application/ --headed
 
       - name: Stop screen recording
         if: always()
