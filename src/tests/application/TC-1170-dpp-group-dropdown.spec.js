@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 const CoreAskPage = require('../../pages/coreask.page');
 const TD = require('../../data/coreask-test-data');
 
-test.describe('[UI] QE-910 TS-001: DPP Group Dropdown Validation', { tag: ['@smoke', '@regression', '@kpmg-coreask'] }, () => {
+test.describe('[UI] QE-910 TS-001: DPP Group Dropdown Validation', { tag: ['@kpmg-coreask'] }, () => {
   let coreAsk;
 
   test('[TC-1170] Test Case - QE-910 TS-001 TC-001: Verify DPP Group dropdown displays all 17 options correctly categorized', async ({ page }) => {
