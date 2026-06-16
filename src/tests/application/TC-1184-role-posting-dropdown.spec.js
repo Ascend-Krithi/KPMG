@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 const CoreAskPage = require('../../pages/coreask.page');
 const TD = require('../../data/coreask-test-data');
 
-test.describe('[UI] QE-910 TS-010: Role Posting Dropdown Validation', { tag: ['@smoke', '@regression', '@kpmg-coreask'] }, () => {
+test.describe('[UI] QE-910 TS-010: Role Posting Dropdown Validation', { tag: ['@kpmg-coreask'] }, () => {
   let coreAsk;
 
   test('[TC-1184] Test Case - QE-910 TS-010 TC-003: Verify Role Posting field visibility and options for Executive Director and below', async ({ page }) => {
