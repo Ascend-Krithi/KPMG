@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 const CoreAskPage = require('../../pages/coreask.page');
 const TD = require('../../data/coreask-test-data');
 
-test.describe('[UI] QE-910 TS-002: Reason For DPP Need Dropdown Validation', { tag: ['@smoke', '@regression', '@kpmg-coreask'] }, () => {
+test.describe('[UI] QE-910 TS-002: Reason For DPP Need Dropdown Validation', { tag: ['@kpmg-coreask'] }, () => {
   let coreAsk;
 
   test('[TC-1171] Test Case - QE-910 TS-002 TC-001: Verify Reason For DPP Need dropdown displays all 3 options', async ({ page }) => {
