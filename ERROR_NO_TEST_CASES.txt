@@ -1,0 +1,35 @@
+/**
+ * ERROR: Unable to generate Playwright automation code
+ * 
+ * REASON: TestRail server unavailable (503 Service Unavailable)
+ * 
+ * REQUIRED INPUT MISSING:
+ * - Test Case JSON containing:
+ *   - TestCaseId
+ *   - ScenarioId
+ *   - Test Steps
+ *   - Expected Results
+ *   - Test Data
+ * 
+ * ACTIONS REQUIRED:
+ * 1. Verify TestRail server status at https://qedemo.testrail.io
+ * 2. Retry fetching test cases from Project ID: 1, Suite ID: 3, Section ID: 7
+ * 3. Provide test case JSON manually if TestRail remains unavailable
+ * 
+ * FRAMEWORK READY:
+ * - Framework structure and rules have been retrieved
+ * - KPMG CoreASK application knowledge is available
+ * - Ready to generate code once test cases are provided
+ * 
+ * FRAMEWORK STRUCTURE PREPARED:
+ * - src/fixtures/index.js (extended fixture with self-healing)
+ * - src/pages/<name>/<Name>Page.js (Page Object classes)
+ * - src/pages/<name>/locators/<name>.locators.js (Locator definitions)
+ * - src/tests/<feature>/<test-name>.spec.js (Test specifications)
+ * - src/data/workday-test-data.js (Test data repository)
+ * 
+ * MANDATORY IMPORT PATTERN:
+ * const { test, expect } = require('../../fixtures');
+ * 
+ * Please resolve the TestRail connectivity issue and provide test cases to proceed.
+ */
